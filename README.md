@@ -8,18 +8,26 @@
 
 ## TL;DR
 
-Industry standards now **require** validating what an AI agent outputs.
-They do **not** say **how**. Three of the most-referenced frameworks name the
-requirement and then leave the method blank:
+The most-referenced AI governance frameworks now **require** validating what a
+model outputs. They do **not** say **how**. Three references, read together,
+show the same shape:
 
-| Standard | It says | It does not say |
+| Reference | What it actually says | What it leaves open |
 |---|---|---|
-| **OWASP Agentic AI Top 10 — A7 "Unreliable Output"** | "Output validation is implemented **where possible**" | what "where possible" means, or how |
-| **NIST AI 600-1 — Confabulation** | "implement output validation controls" | which controls, with what mechanism |
-| **ISO/IEC 42001 — A.6.2.4** (Verification & Validation) | verify the AI system's outputs | a reproducible verification procedure |
+| **NIST AI 600-1 §2.2 — "Confabulation"** | Names *fabricated outputs presented as factual* as a GAI risk. Suggested actions include comparing output against known ground truth through human **and automated** evaluation (`MP-2.3-001`), documented fact-checking (`MP-2.3-003`), and groundedness metrics such as citation verification (`MEASURE-2.1`). | What "automated evaluation" concretely **is**. No mechanism is specified. |
+| **ISO/IEC 42001:2023 — A.6.2.4 (Verification & validation)** | Requires verification and validation of AI system outputs, in the life-cycle control theme. | No reproducible verification **procedure**. The methodology is left to the organisation. |
+| **Practitioner checklists built on the OWASP agentic taxonomy** | Hedge explicitly: *"Output validation is implemented **where possible**"* | What "where possible" means in practice. |
 
-Read the three together: everyone says *validate the output*, nobody supplies a
-**method a third party can run and get a pass/fail from**.
+Everything says *validate the output*. None of them supplies a **method a third
+party can run and get a pass/fail from**.
+
+> **Note on sources.** NIST and ISO claims above are checked against the
+> published documents and their crosswalks; action IDs are quoted from
+> NIST AI 600-1 §2.2. The "where possible" phrasing is quoted from a published
+> vendor compliance checklist for the OWASP agentic taxonomy — **it is the
+> checklist's wording, not OWASP's own text**. OWASP's agentic taxonomies are
+> themselves still consolidating, which is part of why the method gap is where
+> it is.
 
 ---
 
@@ -32,7 +40,11 @@ Most "validation" today falls into two buckets, and neither closes the gap:
 2. **Human review.** Reliable at the individual case, but not reproducible,
    not affordable at scale, and not auditable — two reviewers disagree.
 
-What the requirement actually implies is a third bucket: a **mechanical
+As one practitioner put it, a generic instruction to "verify AI output" is
+paperwork dressed as a control: a reviewer needs an authoritative source, a
+defined decision threshold, and a place to record disagreement.
+
+What the requirements actually imply is a third bucket: a **mechanical
 conformance layer** — checks that decide pass/fail from evidence, without asking
 the model anything.
 
